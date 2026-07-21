@@ -1,0 +1,205 @@
+<h1>Little Man Computer (LMC) Tutorial</h1>
+
+<p>
+The Little Man Computer (LMC) is a simple computer simulator used to learn the basics of
+assembly language and how a CPU works. It models a computer with 100 memory locations
+(numbered 00–99) and uses a small set of instructions to perform calculations,
+store data, and make decisions.
+</p>
+
+<h2>The LMC Interface</h2>
+
+<p>The simulator contains several main sections:</p>
+
+<ul>
+    <li><strong>Code Editor</strong> – Where you write your LMC program.</li>
+    <li><strong>Load Button</strong> – Compiles your program into memory.</li>
+    <li><strong>Run Button</strong> – Executes the program.</li>
+    <li><strong>Input Box</strong> – Used when the program asks for user input.</li>
+    <li><strong>Output Window</strong> – Displays results produced by the program.</li>
+    <li><strong>Memory</strong> – 100 memory locations (00–99) that store instructions and data.</li>
+    <li><strong>Program Counter</strong> – Highlights the instruction currently being executed.</li>
+    <li><strong>Speed Controls</strong> – Change how quickly the program runs.</li>
+</ul>
+
+<h2>LMC Instructions</h2>
+
+<table border="1" cellpadding="6">
+<tr>
+<th>Instruction</th>
+<th>Code</th>
+<th>Description</th>
+</tr>
+
+<tr><td>INP</td><td>901</td><td>Read a value from the user.</td></tr>
+<tr><td>OUT</td><td>902</td><td>Display the value in the accumulator.</td></tr>
+<tr><td>ADD</td><td>1XX</td><td>Add a value from memory.</td></tr>
+<tr><td>SUB</td><td>2XX</td><td>Subtract a value from memory.</td></tr>
+<tr><td>STA</td><td>3XX</td><td>Store the accumulator in memory.</td></tr>
+<tr><td>LDA</td><td>5XX</td><td>Load a value from memory.</td></tr>
+<tr><td>BRA</td><td>6XX</td><td>Jump to another instruction.</td></tr>
+<tr><td>BRZ</td><td>7XX</td><td>Jump if the accumulator equals 0.</td></tr>
+<tr><td>BRP</td><td>8XX</td><td>Jump if the accumulator is positive or zero.</td></tr>
+<tr><td>HLT</td><td>000</td><td>Stop the program.</td></tr>
+<tr><td>DAT</td><td>-</td><td>Create a memory location for data.</td></tr>
+</table>
+
+<h2>Example 1 - Storing User Input</h2>
+
+<p>This program asks the user for a number, stores it, and displays it.</p>
+
+<pre>
+INP
+STA A
+LDA A
+OUT
+HLT
+
+A DAT
+</pre>
+
+<h2>Example 2 - Adding Two Numbers</h2>
+
+<p>The user enters two numbers which are added together.</p>
+
+<pre>
+INP
+STA A
+INP
+STA B
+LDA A
+ADD B
+OUT
+HLT
+
+A DAT
+B DAT
+</pre>
+
+<h2>Example 3 - Subtracting Numbers</h2>
+
+<p>This subtracts the second input from the first.</p>
+
+<pre>
+INP
+STA A
+INP
+STA B
+LDA A
+SUB B
+OUT
+HLT
+
+A DAT
+B DAT
+</pre>
+
+<h2>Example 4 - Making Decisions</h2>
+
+<p>
+Branch instructions allow the program to choose different paths depending on a result.
+</p>
+
+<ul>
+<li><strong>BRA</strong> - Always jumps.</li>
+<li><strong>BRZ</strong> - Jumps only if the accumulator is zero.</li>
+<li><strong>BRP</strong> - Jumps if the accumulator is positive or zero.</li>
+</ul>
+
+<p>The following program outputs the larger of two numbers.</p>
+
+<pre>
+INP
+STA A
+INP
+STA B
+
+LDA A
+SUB B
+BRP FIRST
+
+LDA B
+OUT
+HLT
+
+FIRST LDA A
+OUT
+HLT
+
+A DAT
+B DAT
+</pre>
+
+<h2>Example 5 - Countdown Loop</h2>
+
+<p>Loops repeat instructions until a condition is met.</p>
+
+<pre>
+INP
+STA COUNT
+
+LOOP LDA COUNT
+OUT
+SUB ONE
+STA COUNT
+BRZ END
+BRA LOOP
+
+END LDA COUNT
+OUT
+HLT
+
+COUNT DAT
+ONE DAT 1
+</pre>
+
+<h2>Example 6 - Multiplication</h2>
+
+<p>
+LMC has no multiply instruction, so multiplication is performed by repeatedly adding one
+number to itself.
+</p>
+
+<p>
+Example: 3 × 4 = 3 + 3 + 3 + 3
+</p>
+
+<h2>Example 7 - Division</h2>
+
+<p>
+Division is achieved by repeatedly subtracting the divisor until the dividend reaches zero.
+The number of subtractions performed is the answer.
+</p>
+
+<p>
+Example: 12 ÷ 3
+</p>
+
+<pre>
+12 → 9 → 6 → 3 → 0
+
+Answer = 4
+</pre>
+
+<h2>Example 8 - Squaring a Number</h2>
+
+<p>
+To calculate a square, repeatedly add the number to itself the same number of times.
+</p>
+
+<p>
+Example:
+</p>
+
+<pre>
+5² = 5 + 5 + 5 + 5 + 5 = 25
+</pre>
+
+<h2>Summary</h2>
+
+<p>
+The Little Man Computer is designed to teach the fundamentals of programming,
+including variables, memory, input/output, arithmetic, loops, and branching.
+Although it only supports a small number of instructions, it demonstrates how
+real processors execute programs one instruction at a time.
+</p>
